@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Stack;
 
 public class BalancedParentheses {
@@ -6,18 +7,20 @@ public class BalancedParentheses {
             return false;
         }
 
-        Stack<Character> s = new Stack<>();
-        for (int i = 0; i <= expression.length() - 1; i++) {
+        var s = new Stack<Character>();
+        var hm = new HashMap<Character, Character>();
+        hm.put(')', '(');
+        hm.put('}', '{');
+        hm.put(']', '[');
+
+        for (int i = 0; i < expression.length(); i++) {
             char c = expression.charAt(i);
-            if (c == '{' || c == '(' || c == '[' ) {
+            if (hm.containsValue(c) ) { // open
                 s.push(c);
-            } else if (c == '}' || c == ')' || c == ']' ) {
+            } else if (hm.containsKey(c)) {
                 if (s.empty()) return false;
                 char open = s.pop();
-                if (open == '{' && c == '}') continue;
-                else if (open == '(' && c == ')') continue;
-                else if (open == '[' && c == ']') continue;
-                else return false;
+                if (hm.get(c) != open) return false; // not close
             }
         }
 
