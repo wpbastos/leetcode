@@ -4,18 +4,18 @@ public class DecodeString {
     public static String decode(String code) {
         var numStack = new Stack<Integer>();
         var strStack = new Stack<StringBuilder>();
-        var n = 0;
+        var num = 0;
         StringBuilder sb = new StringBuilder("");
 
         for (int i = 0; i < code.length(); i++) {
             var c = code.charAt(i);
             if (Character.isDigit(c)) {
-                n += Character.getNumericValue(c);
+                num += Character.getNumericValue(c);
                 if (Character.isDigit(code.charAt(i + 1))) {
-                    n *= 10;
+                    num *= 10;
                 } else {
-                    numStack.push(n);
-                    n = 0;
+                    numStack.push(num);
+                    num = 0;
                 }
             } else if (c == '[') {
                 strStack.push(sb);
