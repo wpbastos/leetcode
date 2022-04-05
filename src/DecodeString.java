@@ -6,7 +6,6 @@ public class DecodeString {
         var strStack = new Stack<StringBuilder>();
         var n = 0;
         StringBuilder sb = new StringBuilder("");
-        StringBuilder temp = new StringBuilder("");
 
         for (int i = 0; i < code.length(); i++) {
             var c = code.charAt(i);
@@ -22,10 +21,9 @@ public class DecodeString {
                 strStack.push(sb);
                 sb = new StringBuilder("");
             } else if (c == ']') {
-                temp = strStack.pop();
+                StringBuilder temp = strStack.pop();
                 temp.append(String.valueOf(sb).repeat(Math.max(0, numStack.pop())));
                 sb = temp;
-                temp = new StringBuilder("");
             } else if (Character.isLetter(c)) {
                 sb.append(c);
             }
@@ -35,6 +33,6 @@ public class DecodeString {
     }
 
     public static void main (String[] args) {
-        System.out.println(DecodeString.decode("101[a]"));
+        System.out.println(DecodeString.decode("101[a29[c]]"));
     }
 }
